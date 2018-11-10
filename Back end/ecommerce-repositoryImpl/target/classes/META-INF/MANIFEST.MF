@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: ecommerce-repositoryImpl
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: lsayh
+Implementation-Vendor-Id: com.tieuluanchuyennganh
+Build-Jdk: 1.8.0_172
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/ecommerce/ecommerce-repositoryImpl
+Created-By: Maven Integration for Eclipse
+

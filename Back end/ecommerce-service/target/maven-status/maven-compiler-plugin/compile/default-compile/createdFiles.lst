@@ -1,0 +1,6 @@
+com\ecommerce\service\IhelloService.class
+com\ecommerce\service\SubCategoryService.class
+com\ecommerce\service\UserService.class
+com\ecommerce\service\OrderService.class
+com\ecommerce\service\CategoryService.class
+com\ecommerce\service\ProductService.class
