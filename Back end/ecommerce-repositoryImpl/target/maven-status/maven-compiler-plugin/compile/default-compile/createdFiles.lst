@@ -1,4 +1,3 @@
-com\ecommerce\repositoryImpl\SubCategoryDAO.class
 com\ecommerce\repositoryImpl\CategoryDAO.class
 com\ecommerce\repositoryImpl\UserDAO.class
 com\ecommerce\repositoryImpl\helloImpl.class

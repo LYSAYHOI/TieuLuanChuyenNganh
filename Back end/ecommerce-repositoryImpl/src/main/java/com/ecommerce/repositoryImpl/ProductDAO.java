@@ -156,7 +156,7 @@ public class ProductDAO implements IProductDAO{
 		query.select(root);
 		query.where(builder.and(
 				builder.equal(root.get("status"), true), 
-				builder.equal(root.get("subCategory").get("category").get("idCategory"), categoryId)));
+				builder.equal(root.get("category").get("idCategory"), categoryId)));
 		List<Product> product = entityManager.createQuery(query)
 				.setFirstResult((index-1)*maxResult)
 				.setMaxResults(maxResult)
@@ -173,7 +173,7 @@ public class ProductDAO implements IProductDAO{
 		query.select(builder.count(root));
 		query.where(builder.and(
 				builder.equal(root.get("status"), true), 
-				builder.equal(root.get("subCategory").get("category").get("idCategory"), categoryId)));
+				builder.equal(root.get("category").get("idCategory"), categoryId)));
 		return entityManager.createQuery(query).getSingleResult();
 	}
 	

@@ -1,7 +1,6 @@
 com\ecommerce\serviceImpl\helloServiceImpl.class
 com\ecommerce\serviceImpl\OrderServiceImpl.class
 com\ecommerce\serviceImpl\AuthenticationService.class
-com\ecommerce\serviceImpl\SubCategoryServiceImpl.class
 com\ecommerce\serviceImpl\CategoryServiceImpl.class
 com\ecommerce\serviceImpl\UserServiceImpl.class
 com\ecommerce\utilities\UtilityConvertBetweenEntityAndDTO.class

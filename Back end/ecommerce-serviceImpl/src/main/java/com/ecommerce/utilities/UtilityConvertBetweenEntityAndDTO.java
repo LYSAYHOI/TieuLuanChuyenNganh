@@ -1,20 +1,20 @@
 package com.ecommerce.utilities;
 
 import com.ecommerce.DTO.CategoryDTO;
+import com.ecommerce.DTO.ManufacturerDTO;
 import com.ecommerce.DTO.OrderDetailDTO;
 import com.ecommerce.DTO.OrderProductDTO;
 import com.ecommerce.DTO.OrderStatusDTO;
 import com.ecommerce.DTO.ProductDTO;
 import com.ecommerce.DTO.RoleDTO;
-import com.ecommerce.DTO.SubCategoryDTO;
 import com.ecommerce.DTO.UserDTO;
 import com.ecommerce.model.Category;
+import com.ecommerce.model.Manufacturer;
 import com.ecommerce.model.OrderDetail;
 import com.ecommerce.model.OrderProduct;
 import com.ecommerce.model.OrderStatus;
 import com.ecommerce.model.Product;
 import com.ecommerce.model.Role;
-import com.ecommerce.model.SubCategory;
 import com.ecommerce.model.User;
 
 public class UtilityConvertBetweenEntityAndDTO {
@@ -35,22 +35,20 @@ public UtilityConvertBetweenEntityAndDTO() {}
 		return category;
 	}
 	
-	//convert subcategory
-	public static SubCategoryDTO convertToSubCategoryDTO(SubCategory subCategory) {
-		SubCategoryDTO subCategoryDTO = new SubCategoryDTO();
-		subCategoryDTO.setSubCategoryName(subCategory.getSubCategoryName());
-		subCategoryDTO.setIdSubCategory(subCategory.getIdSubCategory());
-		subCategoryDTO.setCategoryDTO(convertToCategoryDTO(subCategory.getCategory()));
-		return subCategoryDTO;
-	}
-	
-	public static SubCategory convertToSubCategoryEntity(SubCategoryDTO subCategoryDTO) {
-		SubCategory subCategory = new SubCategory();
-		subCategory.setSubCategoryName(subCategoryDTO.getSubCategoryName());
-		subCategory.setIdSubCategory(subCategoryDTO.getIdSubCategory());
-		subCategory.setCategory(convertToCategoryEntity(subCategoryDTO.getCategoryDTO()));
-		return subCategory;
-	}
+	//Convert manufacturer
+		public static ManufacturerDTO convertToManufacturerDTO(Manufacturer manufacturer) {
+			ManufacturerDTO manufacturerDTO = new ManufacturerDTO();
+			manufacturerDTO.setManufacturerName(manufacturer.getManufacturerName());
+			manufacturerDTO.setIdManufacturer(manufacturer.getIdManufacturer());
+			return manufacturerDTO;
+		}
+		
+		public static Manufacturer convertToManufacturerEntity(ManufacturerDTO manufacturerDTO) {
+			Manufacturer manufacturer = new Manufacturer();
+			manufacturer.setManufacturerName(manufacturerDTO.getManufacturerName());
+			manufacturer.setIdManufacturer(manufacturerDTO.getIdManufacturer());
+			return manufacturer;
+		}
 	
 	//convert product
 	public static ProductDTO convertToProductDTO(Product product) {
@@ -62,8 +60,9 @@ public UtilityConvertBetweenEntityAndDTO() {}
 		productDTO.setImage(product.getImage());
 		productDTO.setPrice(product.getPrice());
 		productDTO.setStatus(product.isStatus());
-		productDTO.setSubCategoryDTO(convertToSubCategoryDTO(product.getSubCategory()));
 		productDTO.setViewCounter(product.getViewCounter());
+		if(product.getManufacturer()!=null)
+			productDTO.setManufacturerDTO(convertToManufacturerDTO(product.getManufacturer()));
 		if(product.getUser()!= null)
 			productDTO.setUserDTO(convertToUserDTO(product.getUser()));
 		return productDTO;
@@ -78,8 +77,7 @@ public UtilityConvertBetweenEntityAndDTO() {}
 		product.setImage(productDTO.getImage());
 		product.setPrice(productDTO.getPrice());
 		product.setStatus(productDTO.isStatus());
-		if(productDTO.getSubCategoryDTO() != null)
-			product.setSubCategory(convertToSubCategoryEntity(productDTO.getSubCategoryDTO()));
+		
 		product.setViewCounter(productDTO.getViewCounter());
 		if(productDTO.getUserDTO()!= null)
 			product.setUser(convertToUserEntity(productDTO.getUserDTO()));

@@ -1,7 +1,7 @@
 com\ecommerce\DTO\RoleDTO.class
 com\ecommerce\model\Category.class
 com\ecommerce\model\Address.class
-com\ecommerce\model\SubCategory.class
+com\ecommerce\DTO\ManufacturerDTO.class
 com\ecommerce\DTO\ResponseDTO.class
 com\ecommerce\DTO\ProductDTO.class
 com\ecommerce\DTO\OrderAndCartDTO.class
@@ -16,8 +16,8 @@ com\ecommerce\model\OrderDetail.class
 com\ecommerce\model\Product.class
 com\ecommerce\DTO\OrderDetailDTO.class
 com\ecommerce\model\hello.class
+com\ecommerce\model\Manufacturer.class
 com\ecommerce\DTO\CartDTO.class
-com\ecommerce\DTO\SubCategoryDTO.class
 com\ecommerce\model\Role.class
 com\ecommerce\model\OrderStatus.class
 com\ecommerce\model\OrderProduct.class

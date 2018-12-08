@@ -42,8 +42,12 @@ public class Product {
 	private int viewCounter = 0;
 	
 	@ManyToOne
-	@JoinColumn(name = "idSubCategory")
-	private SubCategory subCategory;
+	@JoinColumn(name = "idCategory")
+	private Category category;
+	
+	@ManyToOne
+	@JoinColumn(name = "idManufacturer")
+	private Manufacturer manufacturer;
 	
 	@ManyToOne
 	@JoinColumn(name = "userId")
@@ -118,12 +122,20 @@ public class Product {
 		this.viewCounter = viewCounter;
 	}
 
-	public SubCategory getSubCategory() {
-		return subCategory;
+	public Category getCategory() {
+		return category;
 	}
 
-	public void setSubCategory(SubCategory subCategory) {
-		this.subCategory = subCategory;
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+	public Manufacturer getManufacturer() {
+		return manufacturer;
+	}
+
+	public void setManufacturer(Manufacturer manufacturer) {
+		this.manufacturer = manufacturer;
 	}
 
 	public User getUser() {

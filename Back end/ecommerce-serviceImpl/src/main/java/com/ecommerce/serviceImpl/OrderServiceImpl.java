@@ -99,7 +99,6 @@ public class OrderServiceImpl implements OrderService{
 			
 			//set product's category is null
 			ProductDTO productDTO = orderDetailDTO.getProduct();
-			productDTO.setSubCategoryDTO(null);
 			//user DTO is null
 			productDTO.setUserDTO(null);
 			
@@ -126,7 +125,6 @@ public class OrderServiceImpl implements OrderService{
 			
 			//set subcategory and user as null
 			ProductDTO product = orderDetail.getProduct();
-			product.setSubCategoryDTO(null);
 			product.setUserDTO(null);
 			
 			orderDetail.setOrder(orderProduct);
@@ -152,7 +150,6 @@ public class OrderServiceImpl implements OrderService{
 			
 			//set subcategory and user as null
 			ProductDTO product = orderDetail.getProduct();
-			product.setSubCategoryDTO(null);
 			product.setUserDTO(null);
 			
 			orderDetail.setOrder(orderProduct);
@@ -251,7 +248,6 @@ public class OrderServiceImpl implements OrderService{
 			
 			//set subcategory and user as null
 			ProductDTO product = orderDetail.getProduct();
-			product.setSubCategoryDTO(null);
 			product.setUserDTO(null);
 			
 			orderDetail.setOrder(orderProduct);

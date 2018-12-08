@@ -8,19 +8,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ecommerce.DTO.ResponseDTO;
 import com.ecommerce.serviceImpl.CategoryServiceImpl;
 import com.ecommerce.serviceImpl.ProductServiceImpl;
-import com.ecommerce.serviceImpl.SubCategoryServiceImpl;
 
 @RestController
 public class MainPageController {
 	
 	private CategoryServiceImpl categoryService;
-	private SubCategoryServiceImpl subCategoryService;
 	private ProductServiceImpl productService;
 	
-	public MainPageController(CategoryServiceImpl categoryService, 
-			SubCategoryServiceImpl subCategoryService, ProductServiceImpl productService) {
+	public MainPageController(CategoryServiceImpl categoryService, ProductServiceImpl productService) {
 		this.categoryService = categoryService;
-		this.subCategoryService = subCategoryService;
 		this.productService = productService;
 	}
 /*	
@@ -37,16 +33,6 @@ public class MainPageController {
 		res.setStatus(0);
 		res.setMessage("My Message");
 		res.setObject(categoryService.getCategoryList());
-		return res;
-	}
-	
-	@GetMapping("GetSubCategoryList")
-	@CrossOrigin
-	public ResponseDTO getSubCategory(){
-		ResponseDTO res = new ResponseDTO();
-		res.setStatus(0);
-		res.setMessage("Subcategory List");
-		res.setObject(subCategoryService.getSubCategoryList());
 		return res;
 	}
 	

@@ -12,8 +12,9 @@ private int idProduct;
 	private boolean status;
 	private Date addDate = new Date();
 	private int viewCounter = 0;
-	private SubCategoryDTO subCategoryDTO;
+	private CategoryDTO CategoryDTO;
 	private UserDTO userDTO;
+	private ManufacturerDTO manufacturerDTO;
 
 	public ProductDTO() {}
 
@@ -57,12 +58,20 @@ private int idProduct;
 		this.status = status;
 	}
 
-	public SubCategoryDTO getSubCategoryDTO() {
-		return subCategoryDTO;
+	public CategoryDTO getCategoryDTO() {
+		return CategoryDTO;
 	}
 
-	public void setSubCategoryDTO(SubCategoryDTO subCategoryDTO) {
-		this.subCategoryDTO = subCategoryDTO;
+	public void setCategoryDTO(CategoryDTO categoryDTO) {
+		CategoryDTO = categoryDTO;
+	}
+
+	public ManufacturerDTO getManufacturerDTO() {
+		return manufacturerDTO;
+	}
+
+	public void setManufacturerDTO(ManufacturerDTO manufacturerDTO) {
+		this.manufacturerDTO = manufacturerDTO;
 	}
 
 	public String getImage() {

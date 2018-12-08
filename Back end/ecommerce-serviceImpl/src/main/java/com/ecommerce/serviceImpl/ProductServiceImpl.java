@@ -9,12 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ecommerce.service.ProductService;
 import com.ecommerce.DTO.ProductDTO;
-import com.ecommerce.DTO.SubCategoryDTO;
 import com.ecommerce.DTO.UserDTO;
 import com.ecommerce.model.Product;
-import com.ecommerce.model.SubCategory;
 import com.ecommerce.repositoryImpl.ProductDAO;
-import com.ecommerce.repositoryImpl.SubCategoryDAO;
 import com.ecommerce.utilities.UtilityConvertBetweenEntityAndDTO;
 
 @Service
@@ -22,9 +19,6 @@ public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	private ProductDAO productDAO; // = new ProductDAO();
-	
-	@Autowired
-	private SubCategoryDAO subCategoryDAO;
 
 	@Transactional
 	@Override
@@ -126,13 +120,14 @@ public class ProductServiceImpl implements ProductService {
 	@Transactional
 	@Override
 	public boolean addProduct(ProductDTO productDTO) {
-		SubCategory subcategory = subCategoryDAO.getSubCategor(productDTO.getSubCategoryDTO().getIdSubCategory());
+		/*SubCategory subcategory = subCategoryDAO.getSubCategor(productDTO.getSubCategoryDTO().getIdSubCategory());
 		SubCategoryDTO subCategoryDTO = UtilityConvertBetweenEntityAndDTO.convertToSubCategoryDTO(subcategory);
 		productDTO.setSubCategoryDTO(subCategoryDTO);
 		UserDTO userDTO = AuthenticationService.getInstance().checkTokenExist(productDTO.getUserDTO().getUserName());
 		productDTO.setUserDTO(userDTO);
 		Product product = UtilityConvertBetweenEntityAndDTO.convertToProductEntity(productDTO);
-		return productDAO.addProduct(product);
+		return productDAO.addProduct(product);*/
+		return false;
 	}
 
 	@Transactional

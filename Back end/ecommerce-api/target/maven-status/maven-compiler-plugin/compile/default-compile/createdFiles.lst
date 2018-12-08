@@ -1,3 +1,5 @@
+com\ecommerce\controller\ProductPageController.class
 com\ecommerce\EcommerceSpringBootApplication.class
 com\ecommerce\controller\helloclass.class
 com\ecommerce\controller\MainPageController.class
+com\ecommerce\controller\LoginController.class
