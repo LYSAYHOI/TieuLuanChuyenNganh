@@ -38,6 +38,7 @@ public class UserServiceImpl implements UserService {
 			List<Object> list = new ArrayList<>();
 			UserDTO loginUserDTO = UtilityConvertBetweenEntityAndDTO.convertToUserDTO(loginUser);
 			String token = AuthenticationService.getInstance().initToken(loginUserDTO);
+			loginUserDTO.setPassword("");
 			list.add(loginUserDTO);
 			list.add(token);
 			return list;

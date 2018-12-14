@@ -1,11 +1,13 @@
 package com.ecommerce.repositoryImpl;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import com.ecommerce.model.User;
@@ -24,13 +26,17 @@ public class UserDAO implements IUserDAO {
 
 	@Override
 	public User login(User user) {
-		/*User loginUser = (User)entityManager.createCriteria(User.class)
-			.add(Restrictions.like("loginName", user.getLoginName()))
-			.add(Restrictions.like("password", user.getPassword()))
-			.uniqueResult();
-		return loginUser;
-		*/
-		return null;
+		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<User> query = builder.createQuery(User.class);
+		Root<User> root = query.from(User.class);
+		query.select(root);
+		query.where(builder.and(
+				builder.equal(root.get("loginName"), user.getLoginName()),
+				builder.equal(root.get("password"), user.getPassword())));
+		List<User> userList = entityManager.createQuery(query).getResultList();
+		if(userList.isEmpty())
+			return null;
+		return userList.get(0);
 	}
 
 	@Override

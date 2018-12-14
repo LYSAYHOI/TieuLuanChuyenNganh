@@ -30,6 +30,7 @@ public class OrderServiceImpl implements OrderService{
 	@Override
 	public boolean createOrderProduct(OrderAndCartDTO orderDTO) {
 		try {
+			orderDTO.getOrderDTO().setStatusDTO(OrderStatusDTO.NONE);
 			int id = orderDAO.CreateOrderProduct(UtilityConvertBetweenEntityAndDTO.convertToOrderEntity(orderDTO.getOrderDTO()));
 			if(id != 0) {
 				for(int i=0; i<orderDTO.getCart().size(); i++) {
