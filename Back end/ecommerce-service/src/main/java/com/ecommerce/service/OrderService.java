@@ -17,4 +17,6 @@ public interface OrderService {
 	public boolean failOrderDetail(OrderDetailDTO orderDetailDTO);
 	public List<OrderDetailDTO> getInprocessOrderDetailByProducer(int idProducer);
 	public List<OrderDetailDTO> getFailOrderDetailByProducer(int idProducer);
+	public boolean inprocessOneOrderDetail(OrderDetailDTO orderDetailDTO);
+	public boolean failOneOrderDetail(OrderDetailDTO orderDetailDTO);
 }

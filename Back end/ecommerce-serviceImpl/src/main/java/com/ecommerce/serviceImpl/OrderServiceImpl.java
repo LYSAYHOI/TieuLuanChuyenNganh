@@ -21,7 +21,7 @@ import com.ecommerce.repositoryImpl.OrderDAO;
 import com.ecommerce.utilities.UtilityConvertBetweenEntityAndDTO;
 
 @Service
-public class OrderServiceImpl implements OrderService{
+public class OrderServiceImpl implements OrderService {
 	
 	@Autowired
 	private OrderDAO orderDAO;
@@ -162,6 +162,32 @@ public class OrderServiceImpl implements OrderService{
 
 	@Transactional
 	@Override
+	public boolean inprocessOneOrderDetail(OrderDetailDTO orderDetailDTO) {
+		boolean result = true;
+		List<OrderDetail> listOrderDetail = orderDAO.getOrderDetailByProducer(orderDetailDTO.getOrder().getIdOrder(), orderDetailDTO.getProduct().getUserDTO().getUserId());
+		OrderDetail orderDetail = new OrderDetail();
+		for(int i=0; i<listOrderDetail.size(); i++) {
+			if(listOrderDetail.get(i).getProduct().getIdProduct() == orderDetailDTO.getProduct().getIdProduct()) {
+				orderDetail = listOrderDetail.get(i);
+				break;
+			}
+		}
+		if(orderDetail.getStatus() != OrderStatus.NONE)
+			return false;
+		orderDetail.setStatus(OrderStatus.INPROCESS);
+		if(orderDAO.changeOrderDetailStatus(orderDetail) == false)
+			result = false;
+		if(result == true) {
+			OrderProduct order = orderDAO.getOrderById(orderDetailDTO.getOrder().getIdOrder());
+			order.setStatus(OrderStatus.INPROCESS);
+			if(orderDAO.changeOrderStatus(order))
+				return true;
+		}
+		return false;
+	}
+	
+	@Transactional
+	@Override
 	public boolean inprocessOrderDetail(OrderDetailDTO orderDetailDTO) {
 		boolean result = true;
 		List<OrderDetail> listOrderDetail = orderDAO.getOrderDetailByProducer(orderDetailDTO.getOrder().getIdOrder(), orderDetailDTO.getProduct().getUserDTO().getUserId());
@@ -195,8 +221,55 @@ public class OrderServiceImpl implements OrderService{
 	
 	@Transactional
 	@Override
+	public boolean failOneOrderDetail(OrderDetailDTO orderDetailDTO) {
+		boolean result = true;
+		List<OrderDetail> listOrderDetail = orderDAO.getOrderDetailByProducer(orderDetailDTO.getOrder().getIdOrder(), orderDetailDTO.getProduct().getUserDTO().getUserId());
+		OrderDetail orderDetail = new OrderDetail();
+		for(int i=0; i<listOrderDetail.size(); i++) {
+			if(listOrderDetail.get(i).getProduct().getIdProduct() == orderDetailDTO.getProduct().getIdProduct()) {
+				orderDetail = listOrderDetail.get(i);
+				break;
+			}
+		}
+		orderDetail.setStatus(OrderStatus.FAIL);
+		if(orderDAO.changeOrderDetailStatus(orderDetail) == false)
+			result = false;
+		if(result == true) {
+			int failProductPrice = 0;
+			List<OrderDetail> listCheckOrderDetail = orderDAO.getOrderDetail(orderDetailDTO.getOrder().getIdOrder());
+			OrderProduct order = orderDAO.getOrderById(orderDetailDTO.getOrder().getIdOrder());
+			boolean checkIsFail = true;
+			boolean checkHasOneFail = false;
+			for(OrderDetail x: listCheckOrderDetail) {
+				if(x.getStatus() != OrderStatus.FAIL)
+					checkIsFail = false;
+				else {
+					checkHasOneFail = true;
+					failProductPrice += (x.getQuantity() * x.getProduct().getPrice());
+				}
+			}
+			if(checkIsFail == true) {
+				order.setStatus(OrderStatus.FAIL);
+				order.setPrice(0);
+				if(orderDAO.changeOrderStatus(order))
+					return true;
+			}else if(checkHasOneFail == true) {
+				order.setStatus(OrderStatus.INPROCESS);
+				order.setPrice(order.getPrice()-failProductPrice);
+				if(orderDAO.changeOrderStatus(order))
+					return true;
+			}
+			return true;
+		}
+		return false;
+	}
+	
+	@Transactional
+	@Override
 	public boolean failOrderDetail(OrderDetailDTO orderDetailDTO) {
 		boolean result = true;
+		System.out.println(orderDetailDTO.getOrder().getIdOrder());
+		System.out.println(orderDetailDTO.getProduct().getUserDTO().getUserId());
 		List<OrderDetail> listOrderDetail = orderDAO.getOrderDetailByProducer(orderDetailDTO.getOrder().getIdOrder(), orderDetailDTO.getProduct().getUserDTO().getUserId());
 		for(int i=0; i<listOrderDetail.size();i++) {
 			listOrderDetail.get(i).setStatus(OrderStatus.FAIL);

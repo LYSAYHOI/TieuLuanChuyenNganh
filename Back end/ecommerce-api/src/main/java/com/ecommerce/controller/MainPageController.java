@@ -1,5 +1,6 @@
 package com.ecommerce.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,15 +12,24 @@ import com.ecommerce.serviceImpl.ProductServiceImpl;
 
 @RestController
 public class MainPageController {
-	
+	@Autowired
 	private CategoryServiceImpl categoryService;
+	
+	@Autowired
 	private ProductServiceImpl productService;
 	
-	public MainPageController(CategoryServiceImpl categoryService, ProductServiceImpl productService) {
-		this.categoryService = categoryService;
-		this.productService = productService;
+	@GetMapping("GetProductBySearch")
+	@CrossOrigin
+	public ResponseDTO getProductBySearch(@RequestParam String keyWord, @RequestParam int index, @RequestParam int maxResult) {
+		ResponseDTO res = new ResponseDTO();
+		res.setStatus(0);
+		res.setMessage("Product search");
+		res.setObject(productService.getProductBySearch(keyWord, index, maxResult));
+		return res;
 	}
+	
 /*	
+ * 
 	@GetMapping("GetCategoryList")
 	@CrossOrigin
 	public List<CategoryDTO> getCategory(){

@@ -48,7 +48,7 @@ public class OrderDAO implements IOrderDAO{
 	}
 
 	@Override
-	public List<OrderProduct> getOrderByUser(int userId){
+	public List<OrderProduct> getOrderByUser(int userId) {
 		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
 		CriteriaQuery<OrderProduct> query = builder.createQuery(OrderProduct.class);
 		Root<OrderProduct> root = query.from(OrderProduct.class);
@@ -123,9 +123,18 @@ public class OrderDAO implements IOrderDAO{
 	@Override
 	public List<OrderDetail> getWaitingOrderDetailByProducer(int idProducer){
 		try {
-			return entityManager.createQuery("from OrderDetail where "
-					+ "product.user.userId = "+ idProducer +" and status = '"
-					+ OrderStatus.NONE+"' order by idOrder").getResultList();
+			CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+			CriteriaQuery<OrderDetail> query = builder.createQuery(OrderDetail.class);
+			Root<OrderDetail> OrderDetailRoot = query.from(OrderDetail.class);
+			query.select(OrderDetailRoot);
+			query.where(builder.and(
+				builder.equal(OrderDetailRoot.get("product").get("user").get("userId"), idProducer),
+				builder.equal(OrderDetailRoot.get("status"), OrderStatus.NONE)
+			));
+			query.orderBy(builder.asc(OrderDetailRoot.get("order").get("idOrder")));
+			
+			return entityManager.createQuery(query).getResultList();
+			
 		}catch(Exception ex) {
 			ex.printStackTrace();
 			return null;
@@ -135,9 +144,19 @@ public class OrderDAO implements IOrderDAO{
 	@Override
 	public List<OrderDetail> getInprocessOrderDetailByProducer(int idProducer){
 		try {
-			return entityManager.createQuery("from OrderDetail where "
-					+ "product.user.userId = "+ idProducer +" and status = '"
-					+ OrderStatus.INPROCESS+"' order by idOrder").getResultList();
+			
+			CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+			CriteriaQuery<OrderDetail> query = builder.createQuery(OrderDetail.class);
+			Root<OrderDetail> OrderDetailRoot = query.from(OrderDetail.class);
+			query.select(OrderDetailRoot);
+			query.where(builder.and(
+				builder.equal(OrderDetailRoot.get("product").get("user").get("userId"), idProducer),
+				builder.equal(OrderDetailRoot.get("status"), OrderStatus.INPROCESS)
+			));
+			query.orderBy(builder.asc(OrderDetailRoot.get("order").get("idOrder")));
+			
+			return entityManager.createQuery(query).getResultList();
+			
 		}catch(Exception ex) {
 			ex.printStackTrace();
 			return null;
@@ -147,9 +166,19 @@ public class OrderDAO implements IOrderDAO{
 	@Override
 	public List<OrderDetail> getFailOrderDetailByProducer(int idProducer){
 		try {
-			return entityManager.createQuery("from OrderDetail where "
-					+ "product.user.userId = "+ idProducer +" and status = '"
-					+ OrderStatus.FAIL+"' order by idOrder").getResultList();
+			
+			CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+			CriteriaQuery<OrderDetail> query = builder.createQuery(OrderDetail.class);
+			Root<OrderDetail> OrderDetailRoot = query.from(OrderDetail.class);
+			query.select(OrderDetailRoot);
+			query.where(builder.and(
+				builder.equal(OrderDetailRoot.get("product").get("user").get("userId"), idProducer),
+				builder.equal(OrderDetailRoot.get("status"), OrderStatus.FAIL)
+			));
+			query.orderBy(builder.asc(OrderDetailRoot.get("order").get("idOrder")));
+			
+			return entityManager.createQuery(query).getResultList();
+			
 		}catch(Exception ex) {
 			ex.printStackTrace();
 			return null;
